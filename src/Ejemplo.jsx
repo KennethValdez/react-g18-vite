@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-const Header =()=>{
+const Ejemplo =()=>{
 
 //const nombre = "Kenneth";
 //hook useState
@@ -16,6 +17,7 @@ const cambiarNombre=(nuevo)=>{
         <div>
             <h1>Primer componente</h1>
             <p>mi nombre es: <strong className= {nombre.length <=4 ? 'verde' : 'azul'}>{nombre}</strong></p>
+            <a href=""><Link>Git</Link></a> 
             <p>mi apellido es: </p>
 
             <input type="text" placeholder="cambia el nombre" onChange={e=>cambiarNombre(e.target.value)} />
@@ -25,4 +27,4 @@ const cambiarNombre=(nuevo)=>{
     )
 }
 
-export default Header;
+export default Ejemplo;

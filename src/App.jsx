@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
-import Header from './Header'
+import Ejemplo from './Ejemplo'
+import Router from './router/Router'
+import {Link} from 'react-router-dom'
 import './App.css'
 
 function App() {
@@ -16,8 +18,9 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <Header/>
       <h1>Vite + React</h1>
+      <a href="./ejemplo">Git2</a><br/>
+      <Link to="/git">Inicio</Link>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}

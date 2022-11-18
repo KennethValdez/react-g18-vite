@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {Link} from 'react-router-dom';
 import '../../src/App.css'
 
 const Git= ()=>{
@@ -22,6 +23,7 @@ const Git= ()=>{
         <div className="App">
             <div className="container">
                 <h1>Buscador Github</h1>
+                <Link to="/">Inicio</Link>
                 <div className="grid">
                     <input type="text" placeholder="ingresa usuarios" onChange={(e)=>setSearch(e.target.value)} />
                 </div>
