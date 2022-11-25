@@ -1,0 +1,104 @@
+import React from 'react'
+import {getDataFromPokemon} from '../Services/index';
+import {useEffect,useState} from 'react';
+import {Card,CardContent,CardMedia,Container,Grid,TextField,FormControl,InputLabel,Select,MenuItem,CircularProgress} from '@mui/material';
+import {Link} from 'react-router-dom'
+
+function Flags() {
+    const[countries,setCountries] = useState([]);
+    const[region,setRegion] = useState("");
+
+    //funcion de componente
+    const fetchCountries = async ()=>{
+        const response = await getDataFromPokemon(
+            `https://restcountries.com/v3.1/all`
+            );
+        setCountries(response);
+    };
+
+    const handleRegion =async(e)=>{
+        setRegion(e.target.value);
+        if(e.target.value ==="all"){
+            fetchCountries();
+            return;
+        }
+    setCountries([]);
+    const response = await getDataFromPokemon(
+        `https://restcountries.com/v3.1/region/${e.target.value}`
+    );
+    setCountries(response);
+
+    //primero debemos limpiar para volver a llenar los inputs
+
+    const handleSearchCountry =(e)=>{
+        const countryName = e.target.value;
+        if(countryName.legth === 0){
+            fetchCountries();
+        }
+
+        if(countryName.legth > 3){
+            const filterCountries = countries.filter((country)=>
+            country.name.official.toUpperCase().includes(countryNama.toUpperCase())
+            );
+            setCountries(filterCountries)
+        }
+
+    };
+
+    useEffect(()=>{
+        //importante por ahira en el useEffect es necesario colocarle un array vacio al termino ya que sino esto generaria un bucle infinito en la peticion 
+        fetchCountries();
+    },[]);
+
+    return (
+        <Container>
+            <h1>banderas</h1>
+            <Grid container spacing ={3}>
+                <Grid item md={6}>
+                    <TextField label="Busca tu pais" onChange={handleSearchCountry} fullWidth/>
+                </Grid>
+                <Grid item md={6}>
+                    <FormControl fullWidth>
+                        <InputLabel>Filtra tu continente</InputLabel>
+                        <Select label='filtra tu continente' onChange={handleRegion}>
+                            <MenuItem value = 'all'>Todos los continentes</MenuItem>
+                            <MenuItem value = 'Africa'>Africa</MenuItem>
+                            <MenuItem value = 'America'>America</MenuItem>
+                            <MenuItem value = 'Asia'>Asia</MenuItem>
+                            <MenuItem value = 'Europa'>Europa</MenuItem>
+                            <MenuItem value = 'Oceania'>Oceania</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Grid>
+                {countries.legth > 0 ? (
+                    countries.map((country)=> (
+                        <Grid item md ={3} xs = {12}>
+                        <Link to={`./banderas/detail/${country.name.common}`}>
+                            <Card>
+                                <CardMedia component="img" 
+                                height={200}
+                                image={country.flags.svg}
+                                />
+                                <CardContent>
+                                <h4>{country.name.oficial}</h4>
+                                <p>Population: {country.population}</p>
+                                <p>Region: {country.region}</p>
+                                <p>Capital: {country.capital}</p>
+                                </CardContent>
+                            </Card>
+                        </Link>
+                        </Grid>
+                    ))
+                ):(
+                    <div className='center loading'>
+                        <CircularProgress />
+                        <h4>Cargando...</h4>
+                    </div>
+                )}
+            </Grid>
+        </Container>
+    )
+}
+
+
+export default Flags;
