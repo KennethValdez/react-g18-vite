@@ -5,6 +5,8 @@ import Ejemplo from "../Ejemplo";
 import Home from "../pages/pokemon";
 import Footer from "../Footer";
 import Flags from "../pages/Flags";
+import principalImg from "../imagenes-pixabay/components/inputImg";
+
 
 const Router =()=>{
     return (
@@ -16,6 +18,7 @@ const Router =()=>{
                 <Route path="/Git" element={<Git/>}/>
                 <Route path="/ejemplo" element={<Ejemplo/>}/>
                 <Route path="/footer" element={<Footer/>}/>
+                <Route path="/imagen" element={<principalImg/>}/>
             </Routes>
         </BrowserRouter>
     )

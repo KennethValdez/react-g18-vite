@@ -27,6 +27,7 @@ function Flags() {
         `https://restcountries.com/v3.1/region/${e.target.value}`
     );
     setCountries(response);
+    }
 
     //primero debemos limpiar para volver a llenar los inputs
 
